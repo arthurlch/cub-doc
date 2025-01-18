@@ -1,38 +1,59 @@
-import  { useState } from 'react';
-import { BookIcon, NavigationIcon, CodeIcon, AlertCircleIcon, ChevronRightIcon, CommandIcon, TerminalIcon } from 'lucide-react';
+ import  { useState } from 'react';
+import { BookIcon, NavigationIcon, CodeIcon, AlertCircleIcon, CommandIcon, TerminalIcon } from 'lucide-react';
 
 const DocSite = () => {
   const [activeSection, setActiveSection] = useState('overview');
+  const [activeTab, setActiveTab] = useState('quick');
+
 
   const sections = {
     overview: {
       title: 'Overview',
       icon: BookIcon,
       content: (
+        <div className="space-y-8">
+        {/* Pic Section */}
+        <div className="max-w-xl mx-auto overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+          <a href="https://i.imgur.com/hZy8AMB.png" target="_blank" rel="noopener noreferrer">
+            <img 
+              src="https://i.imgur.com/hZy8AMB.png" 
+              alt="Cub Editor Screenshot" 
+              className="w-full h-auto max-h-80 object-contain"
+            />
+          </a>
+        </div>
+  
+        {/* Description */}
         <div className="space-y-6">
           <p className="text-lg text-gray-700">
-            <strong>Cub</strong> is a lightweight, BLAZINGLY-FAST, terminal-based text editor built for speed, simplicity, and precision. 
-            Inspired by the best features of Kakoune and Vim, Cub offers intuitive keyboard navigation that strikes a balance between 
+            <strong>Cub</strong> is a lightweight, BLAZINGLY-FAST, terminal-based text editor built for speed and simplicity. 
+            Inspired by Kakoune and Vim, Cub offers intuitive keyboard navigation that strikes a balance between 
             powerful functionality and ease of use.
+            Cub is meant to be an alternative to simple text editors like Nano etc.
           </p>
+  
+          {/* Features Grid */}
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-              <TerminalIcon className="w-8 h-8 text-[#80A4C2] mb-3" />
+              <div className="text-2xl mb-3">🖥️</div>
               <h3 className="text-lg font-semibold mb-2">Terminal-Based</h3>
               <p className="text-gray-600">Efficient and lightweight editor that runs directly in your terminal</p>
             </div>
+  
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-              <CommandIcon className="w-8 h-8 text-[#80A4C2] mb-3" />
+              <div className="text-2xl mb-3">⌨️</div>
               <h3 className="text-lg font-semibold mb-2">Dual Mode</h3>
               <p className="text-gray-600">View Mode for navigation and Insert Mode for editing</p>
             </div>
+  
             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-              <CodeIcon className="w-8 h-8 text-[#80A4C2] mb-3" />
+              <div className="text-2xl mb-3">📝</div>
               <h3 className="text-lg font-semibold mb-2">Syntax Highlight</h3>
               <p className="text-gray-600">Support for all major programming languages</p>
             </div>
           </div>
         </div>
+      </div>
       )
     },
     navigation: {
@@ -233,22 +254,128 @@ const DocSite = () => {
       title: 'Installation',
       icon: TerminalIcon,
       content: (
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <h3 className="text-xl font-semibold mb-4">Installation Steps</h3>
-            <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
-              <div className="mb-2">$ git clone https://github.com/yourusername/cub.git</div>
-              <div className="mb-2">$ cd cub</div>
-              <div>$ make build</div>
+        <div className="space-y-8">
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <h2 className="text-2xl font-bold mb-6">Installation Guide</h2>
+          
+          <div className="border-b border-gray-200 mb-4">
+            <div className="flex space-x-4">
+              <button 
+                onClick={() => setActiveTab('quick')}
+                className={`pb-2 px-4 ${activeTab === 'quick' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'}`}
+              >
+                Quick Install
+              </button>
+              <button 
+                onClick={() => setActiveTab('platform')}
+                className={`pb-2 px-4 ${activeTab === 'platform' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'}`}
+              >
+                Platform Specific
+              </button>
             </div>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <h3 className="text-xl font-semibold mb-4">Usage</h3>
-            <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
-              <div>$ ./cub &lt;filename&gt;</div>
+  
+          {activeTab === 'quick' && (
+            <div className="space-y-4">
+              <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
+                <div className="mb-2">$ git clone https://github.com/arthurlch/cub.git</div>
+                <div className="mb-2">$ cd cub</div>
+                <div>$ make install</div>
+              </div>
+            </div>
+          )}
+  
+          {activeTab === 'platform' && (
+            <div className="space-y-6">
+              <div>
+                <h4 className="font-medium mb-2">macOS</h4>
+                <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
+                  <div className="mb-2">$ make build</div>
+                  <div>$ sudo make install</div>
+                </div>
+                <p className="mt-2 text-sm text-gray-600">Installs to /usr/local/bin</p>
+              </div>
+  
+              <div>
+                <h4 className="font-medium mb-2">Linux</h4>
+                <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
+                  <div className="mb-2">$ make build</div>
+                  <div>$ sudo make install</div>
+                </div>
+                <p className="mt-2 text-sm text-gray-600">Installs to /usr/local/bin</p>
+              </div>
+  
+              <div>
+                <h4 className="font-medium mb-2">Windows</h4>
+                <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
+                  <div className="mb-2">$ make build</div>
+                  <div>$ make install</div>
+                </div>
+                <p className="mt-2 text-sm text-gray-600">Installs to C:\Windows\System32</p>
+              </div>
+            </div>
+          )}
+        </div>
+  
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <h3 className="text-xl font-semibold mb-4">Available Make Commands</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <code className="text-sm font-mono">make build</code>
+              <p className="mt-1 text-sm text-gray-600">Build binary for current system (detected OS and architecture)</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <code className="text-sm font-mono">make build-all</code>
+              <p className="mt-1 text-sm text-gray-600">Build binaries for all supported platforms</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <code className="text-sm font-mono">make deps</code>
+              <p className="mt-1 text-sm text-gray-600">Install Go dependencies (go mod tidy)</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <code className="text-sm font-mono">make install</code>
+              <p className="mt-1 text-sm text-gray-600">Install binary to system directory</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <code className="text-sm font-mono">make uninstall</code>
+              <p className="mt-1 text-sm text-gray-600">Remove installed binary</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <code className="text-sm font-mono">make clean</code>
+              <p className="mt-1 text-sm text-gray-600">Remove built binaries and output directory</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <code className="text-sm font-mono">make verify-path</code>
+              <p className="mt-1 text-sm text-gray-600">Verify installation directory is in PATH</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <code className="text-sm font-mono">make update</code>
+              <p className="mt-1 text-sm text-gray-600">Update to latest version from master branch</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg">
+              <code className="text-sm font-mono">make help</code>
+              <p className="mt-1 text-sm text-gray-600">Show available make commands and descriptions</p>
             </div>
           </div>
         </div>
+  
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <h3 className="text-xl font-semibold mb-4">Supported Platforms</h3>
+          <ul className="list-disc pl-5 space-y-2 text-gray-600">
+            <li>darwin-amd64 (macOS Intel)</li>
+            <li>darwin-arm64 (macOS Apple Silicon)</li>
+            <li>windows-amd64 (Windows 64-bit)</li>
+            <li>linux-amd64 (Linux 64-bit)</li>
+          </ul>
+        </div>
+  
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <h3 className="text-xl font-semibold mb-4">Basic Usage</h3>
+          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
+            <div>$ cub &lt;filename&gt;</div>
+          </div>
+        </div>
+      </div>
       )
     },
     troubleshooting: {
@@ -257,26 +384,92 @@ const DocSite = () => {
       content: (
         <div className="space-y-6">
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <h3 className="text-xl font-semibold mb-4">Common Issues</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start">
-                <ChevronRightIcon className="w-5 h-5 text-[#80A4C2] mr-2 mt-1 flex-shrink-0" />
+          <h3 className="text-xl font-semibold mb-4">Prerequisites</h3>
+          <div className="space-y-4">
+            <div>
+              <h4 className="font-medium mb-2">Go Installation</h4>
+              <p className="text-gray-600 mb-2">Go version 1.18 or higher is required. Install Go based on your platform:</p>
+              
+              <div className="space-y-3">
                 <div>
-                  <strong className="block">Accidental Deletion</strong>
-                  <p className="text-gray-600">Use <kbd className="px-2 py-1 bg-gray-100 rounded mx-1">Ctrl+U</kbd> to undo any accidental changes</p>
+                  <h5 className="text-sm font-medium mb-1">macOS</h5>
+                  <div className="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                    $ brew install go
+                  </div>
                 </div>
-              </li>
-              <li className="flex items-start">
-                <ChevronRightIcon className="w-5 h-5 text-indigo-600 mr-2 mt-1 flex-shrink-0" />
+                
                 <div>
-                  <strong className="block">Navigation Tips</strong>
-                  <p className="text-gray-600">Use <kbd className="px-2 py-1 bg-gray-100 rounded mx-1">Home</kbd> or <kbd className="px-2 py-1 bg-gray-100 rounded mx-1">End</kbd> for quick line navigation</p>
+                  <h5 className="text-sm font-medium mb-1">Linux (Ubuntu/Debian)</h5>
+                  <div className="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                    $ sudo apt-get update<br/>
+                    $ sudo apt-get install golang-go
+                  </div>
                 </div>
-              </li>
-            </ul>
+                
+                <div>
+                  <h5 className="text-sm font-medium mb-1">Windows</h5>
+                  <p className="text-sm text-gray-600 mb-1">Download and install from <a href="https://go.dev/dl/" className="text-blue-500 hover:text-blue-600">official Go website</a></p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      )
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <h3 className="text-xl font-semibold mb-4">Troubleshooting</h3>
+          <div className="space-y-4">
+            <div>
+              <h4 className="font-medium mb-2">Common Issues</h4>
+              <ul className="space-y-3">
+                <li className="bg-gray-50 p-4 rounded-lg">
+                  <strong className="block mb-1">Permission Denied During Installation</strong>
+                  <p className="text-gray-600 mb-2">On Unix-based systems, you might need to use sudo:</p>
+                  <div className="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                    $ sudo make install
+                  </div>
+                </li>
+                
+                <li className="bg-gray-50 p-4 rounded-lg">
+                  <strong className="block mb-1">PATH Issues</strong>
+                  <p className="text-gray-600 mb-2">If the command is not found after installation, run:</p>
+                  <div className="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                    $ make verify-path
+                  </div>
+                </li>
+                
+                <li className="bg-gray-50 p-4 rounded-lg">
+                  <strong className="block mb-1">Go Version Mismatch</strong>
+                  <p className="text-gray-600 mb-2">Verify your Go version meets the minimum requirement (1.18+):</p>
+                  <div className="bg-gray-900 text-gray-100 p-3 rounded-lg font-mono text-sm">
+                    $ go version
+                  </div>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="mt-4">
+              <h4 className="font-medium mb-2">Reporting Issues</h4>
+              <p className="text-gray-600">
+                If you encounter any bugs or issues, please report them on the{" "}
+                <a 
+                  href="https://github.com/arthurlch/cub/issues" 
+                  className="text-blue-500 hover:text-blue-600"
+                >
+                  GitHub Issues page
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <h3 className="text-xl font-semibold mb-4">Basic Usage</h3>
+          <div className="bg-gray-900 text-gray-100 p-4 rounded-lg font-mono text-sm">
+          <div>$ cub &lt;filename&gt;</div>
+        </div>
+      </div>        
+    </div>
+    )
     }
   };
 
@@ -291,7 +484,7 @@ const DocSite = () => {
               <h1 className="ml-2 text-xl font-bold text-[#80A4C2]">Cub Editor</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <a href="https://github.com/yourusername/cub" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-gray-700">
+              <a href="https://github.com/arthurlch/cub" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-gray-700">
                 GitHub
               </a>
             </div>
@@ -325,7 +518,6 @@ const DocSite = () => {
             </div>
           </nav>
 
-          {/* Main content area */}
           <main className="md:col-span-9">
             <div className="bg-white shadow-sm rounded-lg p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
