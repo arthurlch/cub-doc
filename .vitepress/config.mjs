@@ -1,16 +1,16 @@
 import { defineConfig } from 'vitepress'
 
-// Served from https://<user>.github.io/cub-doc/ by default.
-// Change `base` to '/' if you deploy at a domain root.
+// Deployed at a domain root (Vercel). If you instead host under a sub-path
+// like GitHub Pages project sites, set `base` to '/cub-doc/'.
 export default defineConfig({
-  base: '/cub-doc/',
+  base: '/',
   cleanUrls: true,
   lastUpdated: true,
   srcExclude: ['README.md'],
   appearance: true, // light / dark toggle in the nav
 
   head: [
-    ['link', { rel: 'icon', type: 'image/webp', href: '/cub-doc/logo.webp' }],
+    ['link', { rel: 'icon', type: 'image/webp', href: '/logo.webp' }],
     ['meta', { name: 'theme-color', content: '#e0913a' }],
     ['meta', { property: 'og:title', content: 'Cub — a fast, modern terminal text editor' }],
     ['meta', { property: 'og:description', content: 'Modal editing, an integrated terminal, multiple cursors, and truecolor themes, in your terminal.' }],

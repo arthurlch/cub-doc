@@ -32,6 +32,12 @@ npm run docs:preview  # preview the production build
 
 ## Deployment
 
-Pushing to `master` builds and deploys to GitHub Pages via
-`.github/workflows/deploy.yml`. The site is served under `/cub-doc/` — if you
-deploy at a domain root instead, set `base: '/'` in `.vitepress/config.mjs`.
+Deployed on [Vercel](https://vercel.com/) — pushing to the production branch
+triggers a build. The build settings live in `vercel.json`:
+
+- **Build command:** `npm run docs:build`
+- **Output directory:** `.vitepress/dist`
+
+The site is served at a domain root, so `base` is `/` in
+`.vitepress/config.mjs`. If you host under a sub-path (e.g. a GitHub Pages
+project site), set `base` to `'/cub-doc/'`.
